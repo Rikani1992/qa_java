@@ -1,5 +1,6 @@
 package com.example;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
 
@@ -15,14 +17,11 @@ public class LionTest {
     private Feline feline;
 
     @Test
-    public void LionConstructorWithWrongArgument() {
-        try {
+    public void LionConstructorWithWrongArgumentThrowsAnException() {
+        assertThatThrownBy(() -> {
             new Lion("abracadabra", new Feline());
-            fail();
-        } catch (Exception e) {
-            assertEquals("Используйте допустимые значения пола животного - самей или самка",
-                    e.getMessage());
-        }
+        }).isInstanceOf(Exception.class)
+                .hasMessage("Используйте допустимые значения пола животного - самец или самка");
     }
 
     @Test
